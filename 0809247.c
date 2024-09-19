@@ -33,6 +33,7 @@ int count(char ex[], char str[]) {
             }
         }  
     }
+    free(inclusions);
     return globalCounter;
 }
 
