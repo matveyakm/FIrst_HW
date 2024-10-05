@@ -4,26 +4,30 @@
 
 // Заданы две строки: S и S1. Найдите количество вхождений S1 в S как подстроки.
 
-int count(char ex[], char str[]) {
+int count(char substring[], char string[]) {
     int globalCounter = 0;
-    int sizeofEx = strlen(ex);
-    int sizeofStr = strlen(str);
-    int *inclusions = malloc(sizeofEx * sizeof(char));
-    for (int i = 0; i < sizeofStr;i++) {
-        int w = 0;
-        if (str[i] == ex[0] && sizeofEx > 1) {
-            while (inclusions[w] != 0) {
-                w++;
+    int sizeOfSubstring = strlen(substring);
+    int sizeofStr = strlen(string);
+    int *inclusions = malloc(sizeOfSubstring * sizeof(char));
+    for (int i = 0; i < sizeofStr; i++) {
+        int indexOfZeroFinder = 0;
+        if (string[i] == substring[0] && sizeOfSubstring > 1) {
+            while (inclusions[indexOfZeroFinder] != 0) {
+                indexOfZeroFinder++;
             }
-            inclusions[w] = 1;
+            
+            inclusions[indexOfZeroFinder] = 1;
         } else {
-            w = -1;
+            indexOfZeroFinder = -1;
         }
-        for (int j = 0; j < sizeofEx; j++) {
-            if (j == w) continue;   
-            if (str[i] == ex[inclusions[j]] && (inclusions[j] != 0 || sizeofEx == 1)) {
+        for (int j = 0; j < sizeOfSubstring; j++) {
+            if (j == indexOfZeroFinder) {
+                continue;
+            }
+
+            if (string[i] == substring[inclusions[j]] && (inclusions[j] != 0 || sizeOfSubstring == 1)) {
                 inclusions[j]++;
-                if (inclusions[j] == sizeofEx) {
+                if (inclusions[j] == sizeOfSubstring) {
                     inclusions[j] = 0;
                     globalCounter++; 
                 }
@@ -31,7 +35,7 @@ int count(char ex[], char str[]) {
             else {
                 inclusions[j] = 0;
             }
-        }  
+        }
     }
     free(inclusions);
     return globalCounter;
@@ -39,8 +43,8 @@ int count(char ex[], char str[]) {
 
 int main()
 {
-    char exampleStr[] = "10101";
-    char str[] = "00010100101010101"; 
-    printf("%d", count(exampleStr, str));
+    char subString[] = "0";
+    char string[] = "1111011"; 
+    printf("%d", count(subString, string));
     return 0;
 }
