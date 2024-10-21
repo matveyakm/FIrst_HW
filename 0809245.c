@@ -7,8 +7,7 @@
 
 // UPD: Из условия задачи, скобки одного типа, но не сказано какого. Т.е. либо только круглый, либо квадратный и тд. В такой трактовке условия, код работает корректно
 
-int bracketCheck(char *localString)
-{
+int bracketCheck(char *localString) {
     int bracketsBalance = 0;
     for (int i = 0; i < strlen(localString); i++) {
         char currentChar = localString[i];
@@ -18,7 +17,9 @@ int bracketCheck(char *localString)
         if (currentChar == ')' || currentChar == '}' || currentChar == ']') {
             bracketsBalance--;
         }
-        if (bracketsBalance < 0 || currentChar == 0) break; // currentChar уже заканчивал перебор, если строка окончена
+        if (bracketsBalance < 0 || currentChar == 0) {
+            break;
+        }
     }
     return bracketsBalance == 0;
 }
@@ -26,9 +27,9 @@ int bracketCheck(char *localString)
 int main()
 {
     size_t size = 16;
-    char *inputString = (char *)malloc(size * sizeof(char)); 
+    char *inputString = malloc(size * sizeof(char)); 
     getline(&inputString, &size, stdin);
 
-    printf("%d",bracketCheck(inputString));
+    printf("%d", bracketCheck(inputString));
     return 0;
 }
